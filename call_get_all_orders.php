@@ -10,16 +10,15 @@ require_once ('includes/SureDone_Startup.php');
 // if Authentication option is selected
 // start - Authentication
 
-        echo "---- Testing Search----<br>";
+        echo "---- Testing Get All Options  ----<br>";
 
 		$token =  isset($_SESSION['token'])?$_SESSION['token']:'';
 
         try {
 
-            $params = array('brand' => $_REQUEST['brand']);
-            $response = SureDone_Store::search('items', $params, $token, isset($_SESSION['username'])?$_SESSION['username']:'');
+            $response = SureDone_Store::get_all_orders($_REQUEST['page_no'], 'shiptracking', $token, isset($_SESSION['username'])?$_SESSION['username']:'');
 
-            echo $response;
+            print_r($response);
 
         } catch (Exception $e) {
             echo 'Caught exception: ', $e->getMessage(), "\n";

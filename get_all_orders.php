@@ -54,7 +54,7 @@ div#users-contain table td, div#users-contain table th {
 </style>
 	<script>
 	$(function() {
-		var brand = $( "#brand" ),
+		var page_no = $( "#page_no" ),
 			email = $( "#email" ),
 			password = $( "#password" ),
 			allFields = $( [] ).add( name ).add( email ).add( password ),
@@ -102,7 +102,7 @@ div#users-contain table td, div#users-contain table th {
 
 
 
-	$.post("call_get_all_orders.php", { brand: brand.val() })
+	$.post("call_get_all_orders.php", { page_no: page_no.val() })
 .done(function(data) {
 
 
@@ -132,11 +132,11 @@ $( this ).dialog( "close" );
 	</head>
 	<body>
 <div id="dialog-form" title="Parameters Dialog Box">
-      <p class="validateTips">No parameter required.</p>
+      <p class="validateTips">Please provide page number:e.g. <b>1</b></p>
       <form>
-    <fieldset style="display:none;">
-          <label for="brand">Brand</label>
-          <input type="text" name="brand" id="brand" class="text ui-widget-content ui-corner-all" />
+    <fieldset>
+          <label for="page_no">Page No.</label>
+          <input type="text" name="page_no" id="page_no" class="text ui-widget-content ui-corner-all" />
         </fieldset>
   </form>
     </div>
@@ -153,12 +153,12 @@ echo "---- Testing Get All Orders ----<br>";
 
 $params = array();
 
-$response = SureDone_Store::get_all_orders(2, 'shiptracking', $token, isset($_SESSION['username'])?$_SESSION['username']:'');
+$response = SureDone_Store::get_all_orders($_REQUEST['page_no'], 'shiptracking', $token, isset($_SESSION['username'])?$_SESSION['username']:'');
 
 print_r($response);
       </pre>
 
     </div>
-    
+
 </body>
 </html>
