@@ -7,7 +7,7 @@ session_start();
 <link rel="stylesheet" href="http://jqueryui.com/jquery-wp-content/themes/jquery/css/base.css?v=1">
 <link rel="stylesheet" href="http://jqueryui.com/jquery-wp-content/themes/jqueryui.com/style.css">
 <link rel="pingback" href="http://jqueryui.com/xmlrpc.php" />
-<!--[if lt IE 7]><link rel="stylesheet" href="css/font-awesome-ie7.min.css"><![endif]-->
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <style>
 .content-right #content {
 	float: left;
@@ -57,7 +57,7 @@ demoList.find( "a" ).filter(function() {
 return this.pathname.split( "/" )[ 4 ] === (currentDemo + ".html");
 }).click();
 }
-}); 
+});
 </script>
 
 <div class="content-right twelve columns">
@@ -85,8 +85,8 @@ return this.pathname.split( "/" )[ 4 ] === (currentDemo + ".html");
         <li class=""><a href="get_single_order.php">GET Order single data</a></li>
         <li class=""><a href="get_invoice.php">GET Invoice</a></li>
         <li class=""><a href="get_option.php">GET Option</a></li>
-        
-        
+
+
 
       </ul>
     </div>
