@@ -60,7 +60,7 @@ class ExampleShippingResr extends BaseTestCase {
         $s->Expects($this->exactly(1))
              ->method('mail')
              ->with($this->stringContains('demo@suredone.com'),
-                    $this->stringContains('Wrong credentials'),
+                    $this->stringContains('SureDone wrong credentials'),
                     $this->anything());
         $s->api = $observer;
         $s->authenticate_by_token('foo');
@@ -79,8 +79,8 @@ class ExampleShippingResr extends BaseTestCase {
         $s->Expects($this->exactly(1))
              ->method('mail')
              ->with($this->stringContains($s->admin_email),
-                    $this->stringContains('SureDone: Error'),
-                    $this->stringContains('Error message: Can not authenticate'));
+                    $this->stringContains('SureDone Shipstation integration error'),
+                    $this->stringContains('Can not authenticate'));
         $s->api = $observer;
         $s->authenticate('foo', 'foo');
     }
@@ -97,8 +97,8 @@ class ExampleShippingResr extends BaseTestCase {
         $s->Expects($this->exactly(1))
              ->method('mail')
              ->with($this->stringContains($s->admin_email),
-                    $this->stringContains('SureDone: Error'),
-                    $this->stringContains('Error message: Not authenticated'));
+                    $this->stringContains('SureDone Shipstation integration error'),
+                    $this->stringContains('Not authenticated'));
         $s->api = $observer;
         $s->run();
     }

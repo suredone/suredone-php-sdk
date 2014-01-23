@@ -59,13 +59,12 @@ abstract class BaseShipping
         $response = $api::get_profile($this->token);
         $responseObj = json_decode($response);
         $message = 'Provided credentials for ' . get_class($this) . ' are invalid. Please udate.';
-        $this->mail($responseObj->email, 'Wrong credentials', $message);
+        $this->mail($responseObj->email, 'SureDone wrong credentials', $message);
     }
 
     protected function report_error($message) {
         $api = $this->api;
-        $message = 'Error message: ' . $message;
-        $this->mail($this->admin_email, 'SureDone: Error', $message);
+        $this->mail($this->admin_email, 'SureDone Shipstation integration error', $message);
     }
 
     protected function mail($to, $subject, $body) {
