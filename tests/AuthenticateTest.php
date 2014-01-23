@@ -12,4 +12,8 @@ class AuthenticateTest extends BaseTestCase {
         $token = $this->_authenticate('fake');
         $this->assertEmpty($token);
     }
+
+    public function testPlaceholder(){
+        $this->assertTrue(true);
+    }
 }
