@@ -1,7 +1,7 @@
 suredone-php-sdk
 ================
-[![Build Status](https://travis-ci.org/SureDone/suredone-php-sdk.png)](https://travis-ci.org/SureDone/suredone-php-sdk)
-[![Coverage Status](https://coveralls.io/repos/SureDone/suredone-php-sdk/badge.png)](https://coveralls.io/r/SureDone/suredone-php-sdk)
+[![Build Status](https://travis-ci.org/suredone/suredone-php-sdk.png)](https://travis-ci.org/suredone/suredone-php-sdk)
+[![Coverage Status](https://coveralls.io/repos/suredone/suredone-php-sdk/badge.png)](https://coveralls.io/r/suredone/suredone-php-sdk)
 
 
 # Development
