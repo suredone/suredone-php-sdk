@@ -1,8 +1,8 @@
 <?php
 require_once(dirname(__FILE__) . '/base.php');
-require_once(dirname(__FILE__) . '/../includes/SureDone/Shipping/example.php');
+require_once(dirname(__FILE__) . '/../includes/SureDone/Shipping/ExampleShipping.php');
 
-class ExampleShippingResr extends BaseTestCase {
+class ExampleShippingTest extends BaseTestCase {
 
     public function testAuthenticateByToken() {
         $s = new ExampleShipping();
