@@ -83,6 +83,7 @@ return this.pathname.split( "/" )[ 4 ] === (currentDemo + ".html");
         <li class=""><a href="get_awaiting_orders.php">GET Awaiting Orders</a></li>
         <li class=""><a href="get_packing_orders.php">GET Packing Orders</a></li>
         <li class=""><a href="get_single_order.php">GET Order single data</a></li>
+        <li class=""><a href="post_update_order.php">POST Update Order</a></li>
         <li class=""><a href="get_invoice.php">GET Invoice</a></li>
         <li class=""><a href="get_option.php">GET Option</a></li>
 

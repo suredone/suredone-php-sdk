@@ -102,7 +102,7 @@ class SureDone_Store {
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
-	
+
 
     public static function assist($params = null, $authToken = null, $user = null) {
 
@@ -122,9 +122,9 @@ class SureDone_Store {
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
-	
-	
-	
+
+
+
     public static function search($type = null, $params = null, $authToken = null, $user = null) {
 
         /**  this validation code should be moved to to update_profile * */
@@ -143,13 +143,13 @@ class SureDone_Store {
 		} else {
 		$queryStr = "";
 		}
-		
+
 		$url = 'v1/search/'. $type . $queryStr;
 		var_dump($url);
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
-	
+
     public static function editor_objects($type = null, $page = null, $sort = null, $authToken = null, $user = null) {
 
         /**  this validation code should be moved to to update_profile * */
@@ -184,7 +184,7 @@ class SureDone_Store {
 
         $requestor = new SureDone_ApiRequestor($authToken, $user);
 		$url = 'v1/editor/' . $type . '/edit/' . $key ;
-			
+
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
@@ -220,9 +220,9 @@ class SureDone_Store {
         // call the validatio method
         self::validateCall('post_editor_data', $params, $authToken, $user);
         // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
-		
+
 		$params = array('json' => json_encode($params));
-		
+
         $requestor = new SureDone_ApiRequestor($authToken, $user);
 		$url = 'v1/editor/' . $type . '/' . $action  ;
         // call the POST method for the API call
@@ -232,7 +232,7 @@ class SureDone_Store {
 
     public static function get_order_invoice($order = null, $authToken = null, $user = null) {
 
-		
+
 //		$params = array();
         // call the validatio method
 //        self::validateCall('get_all_options', $params, $authToken, $user);
@@ -246,12 +246,12 @@ class SureDone_Store {
 
     public static function get_all_options($authToken = null, $user = null) {
 
-		
+
 		$params = array();
         // call the validatio method
 //        self::validateCall('get_all_options', $params, $authToken, $user);
         // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
-		
+
         $requestor = new SureDone_ApiRequestor($authToken, $user);
 		$url = 'v1/options/all' ;
         // call the POST method for the API call
@@ -262,7 +262,7 @@ class SureDone_Store {
 
     public static function get_option($option_name = null, $authToken = null, $user = null) {
 
-		
+
 //		$params = array();
         // call the validatio method
 //        self::validateCall('get_all_options', $params, $authToken, $user);
@@ -277,7 +277,7 @@ class SureDone_Store {
 
     public static function get_single_order($order = null, $authToken = null, $user = null) {
 
-		
+
 //		$params = array();
         // call the validatio method
 //        self::validateCall('get_all_options', $params, $authToken, $user);
@@ -289,7 +289,7 @@ class SureDone_Store {
         return $requestor->request('GET', $url, $params);
     }
 
-	
+
     public static function get_all_orders($page = null, $sort = null, $authToken = null, $user = null) {
 
         /**  this validation code should be moved to to update_profile * */
@@ -309,7 +309,7 @@ class SureDone_Store {
         return $requestor->request('GET', $url, $params);
     }
 
-	
+
     public static function get_shipped_orders($page = null, $sort = null, $authToken = null, $user = null) {
 
         /**  this validation code should be moved to to update_profile * */
@@ -329,7 +329,7 @@ class SureDone_Store {
         return $requestor->request('GET', $url, $params);
     }
 
-	
+
     public static function get_awaiting_orders($page = null, $sort = null, $authToken = null, $user = null) {
 
         /**  this validation code should be moved to to update_profile * */
@@ -349,7 +349,18 @@ class SureDone_Store {
         return $requestor->request('GET', $url, $params);
     }
 
-	
+    public static function update_order($order = null, $authToken = null, $user = null) {
+        // call the validation method
+        self::validateCall('editor', $order, $authToken, $user);
+
+        // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
+        $requestor = new SureDone_ApiRequestor($authToken, $user);
+        $url = 'v1/orders/edit/' . $order['order'];
+        $params = array('json' => json_encode($order));
+
+        return $requestor->request('POST-RAW', $url, $params);
+    }
+
     public static function get_packing_orders($page = null, $sort = null, $authToken = null, $user = null) {
 
         /**  this validation code should be moved to to update_profile * */
@@ -368,7 +379,6 @@ class SureDone_Store {
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
-
 
     /*
      * validateCall

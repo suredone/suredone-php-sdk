@@ -1,6 +1,6 @@
 <?php
 /**
- * The class facilitates the API calls by doing the following 
+ * The class facilitates the API calls by doing the following
  * - encoding and decoding of the request objects
  * - validating the request
  * - error handling
@@ -75,7 +75,7 @@ class SureDone_ApiRequestor {
     public function request($meth, $url, $params = null, $json_encode = false) {
         if (!$params)
             $params = array();
-		
+
 		list($rbody, $rcode, $myApiKey) = $this->_requestRaw($meth, $url, $params);
 
     	$resp = $this->_interpretResponse($rbody, $rcode);
@@ -83,7 +83,7 @@ class SureDone_ApiRequestor {
 		//return $resultArray;
 		return $rbody;
 
-	
+
 
     }
 
@@ -107,7 +107,7 @@ class SureDone_ApiRequestor {
   }
 
     private function _requestRaw2($meth, $url, $params, $json_encode = false) {
-		
+
 		$myauthToken = "";
 		// token is not needed for auth request
 		if ( !self::endsWith ($url,"auth") ) {
@@ -142,7 +142,7 @@ class SureDone_ApiRequestor {
 		} else {
 		$request_content = http_build_query($params);
 		}
-		
+
 		$options = array(
 			'http' => array(
 				'header'  => $headers,
@@ -151,13 +151,13 @@ class SureDone_ApiRequestor {
 			),
 		);
 		$context  = stream_context_create($options);
-		
+
 		try {
 				$result = file_get_contents($absUrl, false, $context);
 		}
 		catch (ErrorException $e) {
 			throw new SureDone_ApiConnectionError($e->getMessage());
-		}		
+		}
 		$resultArray = json_decode($result);
 		return $resultArray;
     }
@@ -175,7 +175,7 @@ class SureDone_ApiRequestor {
 			if (!$myauthToken)
 				throw new Exception('No Auth Token provided.');
 		}
-		
+
     $absUrl = $this->apiUrl($url);
     $params = self::_encodeObjects($params);
     $langVersion = phpversion();
@@ -186,7 +186,7 @@ class SureDone_ApiRequestor {
 		'publisher' => 'stripe',
 		'uname' => $uname);
 
-					 
+
 	if ( !self::endsWith ($url,"auth") ) {
 	$headers =
 				array('Content-Type: multipart/form-data',
@@ -196,7 +196,7 @@ class SureDone_ApiRequestor {
 	$headers =
 				array('Content-Type:application/x-www-form-urlencoded');
 	}
-		
+
     list($rbody, $rcode) = $this->_curlRequest($meth, $absUrl, $headers, $params);
 
 
@@ -209,10 +209,10 @@ class SureDone_ApiRequestor {
 		if ($length == 0) {
 			return true;
 		}
-	
+
 		return (substr($haystack, -$length) === $needle);
 	}
-	
+
   private function _interpretResponse($rbody, $rcode)
   {
     try {
@@ -225,8 +225,8 @@ class SureDone_ApiRequestor {
       $this->handleApiError($rbody, $rcode, $resp);
     }
     return $resp;
-  }	
-	
+  }
+
   private function _curlRequest($meth, $absUrl, $headers, $params)
   {
     $curl = curl_init();
@@ -241,6 +241,9 @@ class SureDone_ApiRequestor {
     } else if ($meth == 'post') {
       $opts[CURLOPT_POST] = 1;
       $opts[CURLOPT_POSTFIELDS] = self::encode($params);
+    } else if ($meth == 'post-raw') {
+      $opts[CURLOPT_POST] = 1;
+      $opts[CURLOPT_POSTFIELDS] = $params;
     } else if ($meth == 'delete')  {
       $opts[CURLOPT_CUSTOMREQUEST] = 'DELETE';
       if (count($params) > 0) {
