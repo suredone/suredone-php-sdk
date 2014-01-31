@@ -20,6 +20,7 @@ php check_shipping.php --engine=ExampleShipping --username=FOO --password=BAR
 
 ## Requirements
  - phpunit
+ - keboola/csv (sync inventory)
 
 You can use comporser:
 ```sh

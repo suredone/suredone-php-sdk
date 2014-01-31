@@ -224,7 +224,7 @@ class SureDone_Store {
         $requestor = new SureDone_ApiRequestor($authToken, $user);
 		$url = 'v1/editor/' . $type . '/' . $action  ;
         // call the POST method for the API call
-        return $requestor->request('POST', $url, $params);
+        return $requestor->request('POST-RAW', $url, $params);
     }
 
 
