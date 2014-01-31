@@ -203,7 +203,6 @@ class SureDone_Store {
 
         $requestor = new SureDone_ApiRequestor($authToken, $user);
 		$url = 'v1/editor/' . $type . '/edit?sku=' . $key ;
-		var_dump($url);
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
