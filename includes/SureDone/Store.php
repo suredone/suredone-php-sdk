@@ -145,7 +145,6 @@ class SureDone_Store {
 		}
 
 		$url = 'v1/search/'. $type . $queryStr;
-		var_dump($url);
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
