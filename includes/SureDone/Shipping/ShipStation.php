@@ -65,7 +65,10 @@ class ShipStation extends BaseShipping
 
     protected function request($method, $url, $data=array(), $host=null) {
         if (!$this->auth) {
-            $this->auth = array(this->get_option('shipstation_username'), this->get_option('shipstation_password'), );
+            $this->auth = array(
+                $this->get_option('shipstation_username'),
+                $this->get_option('shipstation_password')
+            );
         }
         $options = array('auth' => $this->auth);
         $headers = array(
