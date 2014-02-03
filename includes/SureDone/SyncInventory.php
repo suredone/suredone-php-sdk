@@ -81,6 +81,22 @@ class SyncInventory {
         $sku = array_search('sku', $header);
         $stock = self::find_stock_column($header);
 
+        $items = array();
+        $i = 0;
+        while(true) {
+            $i++;
+            $response = SureDone_Store::editor_objects('items', $i, 'sku', $this->token, $this->username);
+            $response = json_decode($response);
+            foreach ($response as $item) {
+                if (!is_string($item)) {
+                    $items[] = $item;
+                }
+            }
+            if ($i*50 > $response->all) {
+                break;
+            }
+        }
+
         $i = 0;
         foreach($csvFile as $row) {
             $i++;
@@ -89,16 +105,19 @@ class SyncInventory {
             }
             if (!empty($row[$sku])) {
                 $item_sku = $row[$sku];
+                $item_sku_variants = $item_sku . '-';
                 //var_dump($item_sku);
-                $item = SureDone_Store::get_editor_single_object_by_sku('items', $item_sku, $this->token, $this->username);
-                $item = json_decode($item);
-                if ($item) {
-                    $params = array(
-                        'identifier' => 'id',
-                        'id' => $item->id,
-                        'stock' => $row[$stock],
-                    );
-                    SureDone_Store::post_editor_data('items', 'edit', $params, $this->token, $this->username);
+                //$item = SureDone_Store::get_editor_single_object_by_sku('items', $item_sku, $this->token, $this->username);
+                //$item = json_decode($item);
+                foreach ($items as $item) {
+                    if (strtolower($item->sku) == strtolower($item_sku) || stripos($item->sku, $item_sku_variants) === 0) {
+                        $params = array(
+                            'identifier' => 'id',
+                            'id' => $item->id,
+                            'stock' => $row[$stock],
+                        );
+                        SureDone_Store::post_editor_data('items', 'edit', $params, $this->token, $this->username);
+                    }
                 }
             }
         }
