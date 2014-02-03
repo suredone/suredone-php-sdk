@@ -75,5 +75,10 @@ abstract class BaseShipping
     protected function mail($to, $subject, $body) {
         mail($to, $subject, $body);
     }
+
+    protected function get_option($name) {
+        $api = $this->api;
+        $api::get_option($name, $this->token, $this->username);
+    }
 }
 ?>

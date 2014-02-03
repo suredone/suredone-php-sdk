@@ -7,6 +7,7 @@ require_once(dirname(__FILE__) . '/base.php');
 class ShipStation extends BaseShipping
 {
     protected $host = "https://data.shipstation.com";
+    protected $auth = null;
 
     protected function ship($order) {
         $ship_order = $this->find_order($order->order);
@@ -63,7 +64,10 @@ class ShipStation extends BaseShipping
     }
 
     protected function request($method, $url, $data=array(), $host=null) {
-        $options = array('auth' => array('suredoneapi', '3mbbw3hgtpgi'));
+        if (!$this->auth) {
+            $this->auth = array(this->get_option('shipstation_username'), this->get_option('shipstation_password'), );
+        }
+        $options = array('auth' => $this->auth);
         $headers = array(
             'Content-Type' => 'application/json',
             'Accept' => 'application/json'
