@@ -2,6 +2,7 @@
     "require-dev": {
         "satooshi/php-coveralls": "dev-master",
         "phpunit/phpunit": "3.7.*",
-        "keboola/csv": "1.0.*"
+        "keboola/csv": "1.0.*",
+        "rmccue/requests": ">=1.0"
     }
 }
