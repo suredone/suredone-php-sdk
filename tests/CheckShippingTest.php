@@ -14,17 +14,17 @@ class CheckShippingTest extends BaseTestCase {
 
     /**
      * @expectedException     Exception
-     * @expectedExceptionMessage Token or credentials is required
+     * @expectedExceptionMessage Token or password is required
      */
     public function testNoToken() {
-        check_shipping(array('engine' => 'ExampleShipping'));
+        check_shipping(array('engine' => 'ExampleShipping', 'username' => 'demo'));
     }
 
     public function testToken() {
         $s = $this->getMock('ExampleShipping', array('run'));
         $s->Expects($this->exactly(1))
              ->method('run');
-        check_shipping(array('engine' => 'ExampleShipping', 'token' => 'foo', 'use_class' => $s));
+        check_shipping(array('engine' => 'ExampleShipping', 'username' => 'demo', 'token' => 'foo', 'use_class' => $s));
     }
 
     public function testAuthenticate() {

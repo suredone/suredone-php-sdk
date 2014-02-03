@@ -6,11 +6,11 @@ class ExampleShippingTest extends BaseTestCase {
 
     public function testAuthenticateByToken() {
         $s = new ExampleShipping();
-        $s->authenticate_by_token('foo');
+        $s->authenticate_by_token('foo', 'bar');
 
         $property = new ReflectionProperty('ExampleShipping', 'token');
         $property->setAccessible(true);
-        $this->assertEquals($property->getValue($s), 'foo');
+        $this->assertEquals($property->getValue($s), 'bar');
     }
 
     public function testAuthenticate() {
@@ -45,7 +45,7 @@ class ExampleShippingTest extends BaseTestCase {
 
         $s = new ExampleShipping();
         $s->api = $observer;
-        $s->authenticate_by_token('foo');
+        $s->authenticate_by_token('foo', 'bar');
         $s->run();
     }
 
@@ -63,7 +63,7 @@ class ExampleShippingTest extends BaseTestCase {
                     $this->stringContains('SureDone wrong credentials'),
                     $this->anything());
         $s->api = $observer;
-        $s->authenticate_by_token('foo');
+        $s->authenticate_by_token('foo', 'bar');
         $s->example_report_wrong_credentials();
     }
 

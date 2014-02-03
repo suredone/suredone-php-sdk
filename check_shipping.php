@@ -5,8 +5,12 @@ function check_shipping($options) {
     }
     $engine = $options['engine'];
 
-    if (empty($options['token']) && (empty($options['username']) || empty($options['password']))) {
-        throw new Exception('Token or credentials is required');
+    if (empty($options['username'])) {
+        throw new Exception('Username is required');
+    }
+
+    if (empty($options['token']) && empty($options['password'])) {
+        throw new Exception('Token or password is required');
     }
 
     require_once(dirname(__FILE__) . '/includes/SureDone/Shipping/' . $engine . '.php');
@@ -15,7 +19,7 @@ function check_shipping($options) {
         $s = $options['use_class'];
     }
     if (!empty($options['token'])) {
-        $s->authenticate_by_token($options['token']);
+        $s->authenticate_by_token($options['username'], $options['token']);
     } else {
         $s->authenticate($options['username'], $options['password']);
     }
