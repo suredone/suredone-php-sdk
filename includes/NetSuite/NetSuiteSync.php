@@ -31,6 +31,6 @@ if (strpos($_SERVER["SCRIPT_FILENAME"], 'NetSuiteSync.php') !== false) {
     }
 
     $suite = new NetSuite($options['sd-username'],$options['sd-token']);
-    //$suite->sync_orders();
+    $suite->sync_orders();
 }
 ?>

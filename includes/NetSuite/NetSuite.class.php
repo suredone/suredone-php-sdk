@@ -13,5 +13,17 @@ class NetSuite {
         $this->netSuite_service = new NetSuiteService();
     }
 
+    public function sync_orders() {
+        $i = 0;
+        while(true) {
+            $i++;
+            $response = SureDone_Store::get_shipped_orders($i, 'shiptracking', $this->sd_token, $this->sd_username);
+            $orders = json_decode($response);
+            if (!$orders) {
+                break;
+            }
+            var_dump($response);
+        }
+    }
 }
 ?>
