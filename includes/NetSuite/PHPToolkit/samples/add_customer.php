@@ -1,6 +1,6 @@
 <?php
 
-require_once '../PHPToolkit/NetSuiteService.php';
+require_once dirname(__FILE__).'/../PHPToolkit/NetSuiteService.php';
 
 $service = new NetSuiteService();
 

@@ -4,3 +4,4 @@ composer.phar
 build/*
 .DS_Store
 reports/*
+includes/NetSuite/PHPToolkit/PHPToolkit/nslog/*
