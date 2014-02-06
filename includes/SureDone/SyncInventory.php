@@ -25,7 +25,21 @@ class SyncInventory {
     * @param $header array list of columns
     */
     public static function find_stock_column($header) {
-        $fields = array('stock', 'qty');
+        $fields = array('Available', 'stock', 'qty');
+        foreach($fields as $field) {
+            $position = array_search($field, $header);
+            if ($position !== false) {
+                return $position;
+            }
+        }
+    }
+
+    /**
+    * Find sku column number
+    * @param $header array list of columns
+    */
+    public static function find_sku_column($header) {
+        $fields = array('Part Id', 'sku');
         foreach($fields as $field) {
             $position = array_search($field, $header);
             if ($position !== false) {
@@ -78,7 +92,7 @@ class SyncInventory {
     protected function sync($file) {
         $csvFile = new Keboola\Csv\CsvFile($file);
         $header = $csvFile->getHeader();
-        $sku = array_search('sku', $header);
+        $sku = self::find_sku_column($header);
         $stock = self::find_stock_column($header);
 
         $items = array();
