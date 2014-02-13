@@ -21,8 +21,11 @@ class SureDone_Store {
 
     public static function authenticate($user = NULL, $pass = NULL, $APIToken = NULL) {
 
+        if ($APIToken && $user){
+            return json_encode(array("token" => $APIToken, 'username' => $user));
+        }
         // array of parameters
-        $params = array('user' => $user, 'pass' => $pass, 'token' => $APIToken);
+        $params = array('user' => $user, 'pass' => $pass);
         // call the validatio method
         self::validateCall('authenticate', $params, null);
         // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
