@@ -11,7 +11,15 @@ require_once ('includes/SureDone_Startup.php');
 // start - Authentication
 
         echo "---- Testing Authentication ----<br>";
-		$rbody = SureDone_Store::authenticate($_REQUEST['username'], $_REQUEST['password']);
+        echo 'Parameters <br>';
+        echo 'username: <br>';
+        echo($_REQUEST['username']);
+        echo '<br> password: <br>';
+        echo($_REQUEST['password']);
+        echo '<br> token: <br>';
+        echo($_REQUEST['token']);
+        echo '<br>';
+		$rbody = SureDone_Store::authenticate($_REQUEST['username'], $_REQUEST['password'], $_REQUEST['token']);
 		$responseObj = json_decode($rbody);
 		if (isset($responseObj->token)) {
 		$token = $responseObj->token;
@@ -20,7 +28,7 @@ require_once ('includes/SureDone_Startup.php');
 
         echo (isset($token) ? "Authentication successful" : "" ) . "<br>" . "token:" . $token . "<br>";
 		} else {
-			echo "Invalid username or password.";
+			echo "Invalid username or password/token.";
 		}
 
 	?>

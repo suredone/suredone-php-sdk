@@ -57,7 +57,8 @@ div#users-contain table td, div#users-contain table th {
 		var name = $( "#name" ),
 			email = $( "#email" ),
 			password = $( "#password" ),
-			allFields = $( [] ).add( name ).add( email ).add( password ),
+			token = $('#API_token'),
+			allFields = $( [] ).add( name ).add( email ).add( password ).add( token ),
 			tips = $( ".validateTips" );
 
 		function updateTips( t ) {
@@ -99,8 +100,7 @@ div#users-contain table td, div#users-contain table th {
 				"Call SDK": function() {
 					var bValid = true;
 					allFields.removeClass( "ui-state-error" );
-
-	$.post("call_authenticate.php", { username: name.val(), password: password.val() })
+	$.post("call_authenticate.php", { username: name.val(), password: password.val(), token: token.val() })
 .done(function(data) {
 
 $("#response").html(data);
@@ -137,6 +137,9 @@ $( this ).dialog( "close" );
           <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
           <label for="password">Password</label>
           <input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
+          <p>You may provide one or the other - password or API token</p>
+          <label for="API_token">API Token</label>
+          <input type="text" name="API_token" id="API_token" value="" class="text ui-widget-content ui-corner-all" />
         </fieldset>
   </form>
     </div>
@@ -150,7 +153,7 @@ $( this ).dialog( "close" );
             <h1>Source Code:</h1>
       <pre style="font-size:12px;">
 echo "---- Testing Authentication ----<br>";
-$rbody = SureDone_Store::authenticate($_REQUEST['username'], $_REQUEST['password']);
+$rbody = SureDone_Store::authenticate($_REQUEST['username'], $_REQUEST['password'], $_REQUEST['API_token']);
 $responseObj = json_decode($rbody);
 if (isset($responseObj->token)) {
 $token = $responseObj->token;

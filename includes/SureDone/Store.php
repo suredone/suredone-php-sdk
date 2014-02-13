@@ -15,13 +15,14 @@ class SureDone_Store {
      *
      * @param String $user - username of the registered SureDone user
      * @param String $pass - password of the registered SureDone user
+     * @param String $APIToken - Api token of the registered SureDone user
      * @return array decoded from JSON format response
      */
 
-    public static function authenticate($user = NULL, $pass = NULL) {
+    public static function authenticate($user = NULL, $pass = NULL, $APIToken = NULL) {
 
         // array of parameters
-        $params = array('user' => $user, 'pass' => $pass);
+        $params = array('user' => $user, 'pass' => $pass, 'token' => $APIToken);
         // call the validatio method
         self::validateCall('authenticate', $params, null);
         // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
