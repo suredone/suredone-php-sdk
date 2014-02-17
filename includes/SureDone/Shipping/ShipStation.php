@@ -21,7 +21,7 @@ class ShipStation extends BaseShipping
 
     protected function add_order($order) {
         $data = array(
-            'OrderStatusID' => 5, #FIXME AFTER QA
+            'OrderStatusID' => 1,
             'OrderNumber' => $order->order,
             'OrderDate' => $order->date,
             'ShipName' => $order->sfirstname . ' ' . $order->slastname . ' ' . $order->sbusiness,
