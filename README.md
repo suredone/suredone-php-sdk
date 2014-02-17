@@ -8,7 +8,7 @@ suredone-php-sdk
 ## Running Shipping integration
 With token
 ```sh
-php check_shipping.php --engine=ExampleShipping --token=fdsfdsfs342
+php check_shipping.php --engine=ExampleShipping  --username=FOO --token=fdsfdsfs342
 ```
 
 With credentials

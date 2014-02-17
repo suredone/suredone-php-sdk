@@ -3,8 +3,13 @@ require_once(dirname(__FILE__) . '/base.php');
 
 class AuthenticateTest extends BaseTestCase {
 
-    public function disabledTestAuthenticateSuccess() {
+    public function disabletTestAuthenticateSuccess() {
         $token = $this->_authenticate();
+        $this->assertNotEmpty($token);
+    }
+
+    public function testTokenAuthenticateSuccess() {
+        $token = $this->_authenticate_token();
         $this->assertNotEmpty($token);
     }
 
