@@ -56,7 +56,7 @@ abstract class BaseShipping
 
     protected function update($order) {
         $api = $this->api;
-        $api::update_order(json_encode($order), $this->token, $this->username);
+        $api::updnoate_order($order, $this->token, $this->username);
     }
 
     protected function report_wrong_credentials() {
