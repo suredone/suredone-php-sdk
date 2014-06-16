@@ -236,6 +236,17 @@ class SureDone_Store {
         return $requestor->request('POST-RAW', $url, $params);
     }
 
+    public static function put_order($params, $authToken, $user) {
+        // call the validation method
+        self::validateCall('put_order', $params, $authToken, $user);
+        // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
+
+        $params = array('json' => json_encode($params));
+        $requestor = new SureDone_ApiRequestor($authToken, $user);
+        $url = 'v1/orders/add';
+        // call the POST method for the API call
+        return $requestor->request('POST-RAW', $url, $params);
+    }
 
     public static function get_order_invoice($order = null, $authToken = null, $user = null) {
 
