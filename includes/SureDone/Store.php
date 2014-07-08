@@ -215,8 +215,27 @@ class SureDone_Store {
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
-
-    public static function post_editor_data($type = null, $action = null,  $params = null, $authToken = null, $user = null) {
+    
+    /* prepare an array and return a string to be used as a get param ($_GET)
+     * @param $args : array, required, key:value pairs (converted to ?key=value)
+     * @param $append : bool, optional, defult = false. When set to true the "?" is
+     *     not used (allowing for appending to an existing $_GET string)
+    */
+    public static function prepare_get_params($args=false, $append=false){
+        // validate
+        if(!$args || !is_array($args) || count($args)<1){
+            return false;
+        }
+        $ret = null; // init
+        foreach ($args as $k=>$v){
+            $ret .=$k.'='.$v.'&';
+        }
+        // add "?" as needed
+        if(!$append)$ret='?'.$ret;
+        return $ret;
+    }
+    
+    public static function post_editor_data($type = null, $action = null,  $params = null, $authToken = null, $user = null, $getargs=false) {
 
         /**  this validation code should be moved to to update_profile * */
 //        if (!$type || !$params || !is_array($params)) {
@@ -231,7 +250,10 @@ class SureDone_Store {
 		$params = array('json' => json_encode($params));
 
         $requestor = new SureDone_ApiRequestor($authToken, $user);
-		$url = 'v1/editor/' . $type . '/' . $action  ;
+        // do we need to add $_GET args?
+        $get_string=''; // init
+        if($getargs)$get_string=self::prepare_get_params($getargs);
+		$url = 'v1/editor/' . $type . '/' . $action.$get_string  ;
         // call the POST method for the API call
         return $requestor->request('POST-RAW', $url, $params);
     }
