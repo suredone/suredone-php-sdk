@@ -1,4 +1,5 @@
 {
+    "name": "suredone/suredone-php-sdk",
     "require-dev": {
         "satooshi/php-coveralls": "dev-master",
         "phpunit/phpunit": "3.7.*",
