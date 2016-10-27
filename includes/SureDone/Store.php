@@ -143,17 +143,17 @@ class SureDone_Store {
 
 
         // call the validatio method
-        self::validateCall('seach', $params, $authToken, $user);
+        self::validateCall('search', $params, $authToken, $user);
         // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
 
         $requestor = new SureDone_ApiRequestor($authToken, $user);
-		if ( count($params) ) {
-		$queryStr =  '/' . str_replace('=',':=',http_build_query ($params));
-		} else {
-		$queryStr = "";
-		}
+        if ( count($params) ) {
+        $queryStr =  '/' . str_replace('=',':=',http_build_query ($params));
+        } else {
+        $queryStr = "";
+        }
 
-		$url = 'v1/search/'. $type . $queryStr;
+        $url = 'v1/search/'. $type . $queryStr;
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
@@ -165,14 +165,14 @@ class SureDone_Store {
 //            throw new Exception('type and parameter object cannot be null');
 //        }
 
-		$params = array();
+        $params = array();
 
         // call the validatio method
         self::validateCall('editor', $params, $authToken, $user);
         // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
 
         $requestor = new SureDone_ApiRequestor($authToken, $user);
-		$url = 'v1/editor/'. $type . '?page=' . $page . '&sort=' . $sort;
+        $url = 'v1/editor/'. $type . '?page=' . $page . '&sort=' . $sort;
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
@@ -184,14 +184,14 @@ class SureDone_Store {
 //            throw new Exception('type and parameter object cannot be null');
 //        }
 
-		$params = array();
+        $params = array();
 
         // call the validatio method
         self::validateCall('get_editor_single_object', $params, $authToken, $user);
         // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
 
         $requestor = new SureDone_ApiRequestor($authToken, $user);
-		$url = 'v1/editor/' . $type . '/edit/' . $key ;
+        $url = 'v1/editor/' . $type . '/edit/' . $key ;
 
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
@@ -204,18 +204,18 @@ class SureDone_Store {
 //            throw new Exception('type and parameter object cannot be null');
 //        }
 
-		$params = array();
+        $params = array();
 
         // call the validatio method
         self::validateCall('get_editor_single_object', $params, $authToken, $user);
         // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
 
         $requestor = new SureDone_ApiRequestor($authToken, $user);
-		$url = 'v1/editor/' . $type . '/edit?sku=' . $key ;
+        $url = 'v1/editor/' . $type . '/edit?sku=' . $key ;
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
-    
+
     /* prepare an array and return a string to be used as a get param ($_GET)
      * @param $args : array, required, key:value pairs (converted to ?key=value)
      * @param $append : bool, optional, defult = false. When set to true the "?" is
@@ -234,7 +234,7 @@ class SureDone_Store {
         if(!$append)$ret='?'.$ret;
         return $ret;
     }
-    
+
     public static function post_editor_data($type = null, $action = null,  $params = null, $authToken = null, $user = null, $getargs=false) {
 
         /**  this validation code should be moved to to update_profile * */
@@ -247,13 +247,23 @@ class SureDone_Store {
         self::validateCall('post_editor_data', $params, $authToken, $user);
         // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
 
-		$params = array('json' => json_encode($params));
-
+        $params = array('json' => json_encode($params));
         $requestor = new SureDone_ApiRequestor($authToken, $user);
         // do we need to add $_GET args?
         $get_string=''; // init
-        if($getargs)$get_string=self::prepare_get_params($getargs);
-		$url = 'v1/editor/' . $type . '/' . $action.$get_string  ;
+
+        if ($getargs) {
+            $get_string = self::prepare_get_params($getargs);
+        }
+
+        $urlBase = 'v1/editor/' . $type . '/' . $action;
+
+        if ($type == 'orders') {
+            $urlBase = 'v1/' . $type . '/' . $action  ;
+        }
+
+        $url = $urlBase . $get_string  ;
+
         // call the POST method for the API call
         return $requestor->request('POST-RAW', $url, $params);
     }
@@ -277,9 +287,9 @@ class SureDone_Store {
         // call the validatio method
 //        self::validateCall('get_all_options', $params, $authToken, $user);
         // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
-		$params = array();
+        $params = array();
         $requestor = new SureDone_ApiRequestor($authToken, $user);
-		$url = 'v1/orders/invoice/' . $order;
+        $url = 'v1/orders/invoice/' . $order;
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
@@ -287,13 +297,13 @@ class SureDone_Store {
     public static function get_all_options($authToken = null, $user = null) {
 
 
-		$params = array();
+        $params = array();
         // call the validatio method
 //        self::validateCall('get_all_options', $params, $authToken, $user);
         // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
 
         $requestor = new SureDone_ApiRequestor($authToken, $user);
-		$url = 'v1/options/all' ;
+        $url = 'v1/options/all' ;
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
@@ -307,9 +317,9 @@ class SureDone_Store {
         // call the validatio method
 //        self::validateCall('get_all_options', $params, $authToken, $user);
         // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
-		$params = array();
+        $params = array();
         $requestor = new SureDone_ApiRequestor($authToken, $user);
-		$url = 'v1/options/' . $option_name ;
+        $url = 'v1/options/' . $option_name ;
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
@@ -322,9 +332,9 @@ class SureDone_Store {
         // call the validatio method
 //        self::validateCall('get_all_options', $params, $authToken, $user);
         // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
-		$params = array();
+        $params = array();
         $requestor = new SureDone_ApiRequestor($authToken, $user);
-		$url = 'v1/orders/edit/' . $order ;
+        $url = 'v1/orders/edit/' . $order ;
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
@@ -337,14 +347,14 @@ class SureDone_Store {
 //            throw new Exception('type and parameter object cannot be null');
 //        }
 
-		$params = array();
+        $params = array();
 
         // call the validatio method
         self::validateCall('editor', $params, $authToken, $user);
         // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
 
         $requestor = new SureDone_ApiRequestor($authToken, $user);
-		$url = 'v1/orders/all?page=' . $page . '&sort=' . $sort;
+        $url = 'v1/orders/all?page=' . $page . '&sort=' . $sort;
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
@@ -357,14 +367,14 @@ class SureDone_Store {
 //            throw new Exception('type and parameter object cannot be null');
 //        }
 
-		$params = array();
+        $params = array();
 
         // call the validatio method
         self::validateCall('editor', $params, $authToken, $user);
         // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
 
         $requestor = new SureDone_ApiRequestor($authToken, $user);
-		$url = 'v1/orders/shipped?page=' . $page . '&sort=' . $sort;
+        $url = 'v1/orders/shipped?page=' . $page . '&sort=' . $sort;
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
@@ -377,14 +387,14 @@ class SureDone_Store {
 //            throw new Exception('type and parameter object cannot be null');
 //        }
 
-		$params = array();
+        $params = array();
 
         // call the validatio method
         self::validateCall('editor', $params, $authToken, $user);
         // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
 
         $requestor = new SureDone_ApiRequestor($authToken, $user);
-		$url = 'v1/orders/awaiting?page=' . $page . '&sort=' . $sort;
+        $url = 'v1/orders/awaiting?page=' . $page . '&sort=' . $sort;
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
@@ -408,14 +418,14 @@ class SureDone_Store {
 //            throw new Exception('type and parameter object cannot be null');
 //        }
 
-		$params = array();
+        $params = array();
 
         // call the validatio method
         self::validateCall('editor', $params, $authToken, $user);
         // instantiate the APIRequirestor which calls the API method, receives the JSON response and decodes response to create result array
 
         $requestor = new SureDone_ApiRequestor($authToken, $user);
-		$url = 'v1/orders/packing?page=' . $page . '&sort=' . $sort;
+        $url = 'v1/orders/packing?page=' . $page . '&sort=' . $sort;
         // call the POST method for the API call
         return $requestor->request('GET', $url, $params);
     }
